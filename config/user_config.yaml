@@ -1,0 +1,98 @@
+# ============================================================
+#  AI Daily Digest — 个人配置文件
+#  修改此文件后 commit 并 push，GitHub Actions 自动生效
+# ============================================================
+
+# ━━━━ 推送计划 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 支持设置多个推送时间段（每个时间段独立抓取、过滤、推送）
+# time: 推送时间，HH:MM 格式
+# lookback_hours: 该时间段抓取过去多少小时的内容（与推送频次一致）
+# label: 消息开头的标签前缀
+
+schedule:
+  - time: "09:00"
+    lookback_hours: 24
+    label: "🌅 早间要闻"
+    enabled: true
+
+  - time: "18:00"
+    lookback_hours: 9
+    label: "🌇 傍晚速报"
+    enabled: false          # 设为 false 禁用此时间段
+
+  - time: "22:00"
+    lookback_hours: 4
+    label: "🌙 深夜精选"
+    enabled: false
+
+
+# ━━━━ 内容过滤 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+filter:
+  # 每次推送最多发送的条目数量（5~20）
+  max_items: 12
+
+  # 最低分数阈值，低于此分数的条目直接丢弃（0 = 不过滤）
+  min_score: 3
+
+  # 屏蔽词，摘要中包含以下词的条目直接丢弃（忽略大小写）
+  block_keywords:
+    - "sponsored"
+    - "advertisement"
+    - "crypto"
+    - "NFT"
+
+  # 只保留这些来源 tag（为空 = 全部保留）
+  # 注意 tag 与 sources.yaml 中每个源的 tags 字段对应
+  include_tags: []
+  # 示例：只要学术和官方来源
+  # include_tags: ["academic", "official"]
+
+  # 排除这些来源 tag
+  exclude_tags: []
+  # 示例：不要媒体报道
+  # exclude_tags: ["media"]
+
+
+# ━━━━ 个人关注领域 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 在标准关键词权重之外，额外加权关注的方向
+# 匹配这些词或短语 +8 分，见 filter.py 中的计算
+
+personal_interests:
+  - "RLHF"
+  - "alignment"
+  - "mechanistic interpretability"
+  - "reasoning"
+  - "agent"
+  # 替换为自己的研究方向，不需要的可删除
+
+
+# ━━━━ LLM 配置 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+llm:
+  # 可选: openai / deepseek / anthropic
+  provider: "openai"
+  model: "gpt-4o-mini"
+  summary_language: "zh"      # zh = 中文摘要, en = 英文摘要
+  # 单条摘要最大字数
+  max_summary_chars: 60
+  # 是否生成全局概述（消耗约 500 tokens）
+  generate_overview: true
+
+
+# ━━━━ 发送格式 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+display:
+  # 是否在微信消息中显示原文链接
+  show_links: true
+  # 是否显示重要性星级
+  show_stars: true
+  # 是否显示来源名称
+  show_source: true
+  # 是否显示发布时间
+  show_time: true
+  # 分级阈值（score）
+  tier_thresholds:
+    critical: 15   # score >= 15 → 🔥🔥🔥
+    high: 8        # score >= 8  → ⭐⭐
+    # 其余          →  ⭐

@@ -1,0 +1,39 @@
+keywords:
+  critical:          # 权重: 10
+    - "model release"
+    - "open source"
+    - "open weights"
+    - "benchmark"
+    - "SOTA"
+    - "AGI"
+    - "reasoning"
+    - "multimodal"
+    - "GPT"
+    - "Claude"
+    - "Gemini"
+    - "Llama"
+    - "Mistral"
+    - "DeepSeek"
+    - "Qwen"
+
+  high:              # 权重: 5
+    - "fine-tuning"
+    - "alignment"
+    - "RLHF"
+    - "inference"
+    - "training"
+    - "funding"
+    - "acquisition"
+    - "agent"
+    - "RAG"
+    - "context window"
+
+  medium:            # 权重: 2
+    - "regulation"
+    - "safety"
+    - "partnership"
+    - "deployment"
+    - "API"
+
+# 注意：个人关注领域在 user_config.yaml 的 personal_interests 中配置
+# 不需要在此处重复添加
