@@ -22,7 +22,7 @@ logger = logging.getLogger("main")
 sys.path.insert(0, str(Path(__file__).parent))
 
 from src.fetcher import fetch_all, load_sources_with_filter
-from src.filter import filter_and_score
+from src.filter import filter_and_score_tracks
 from src.notifier import send_wechat
 from src.summarizer import generate_overview, summarize_all
 from src.utils import load_user_config, save_archive
@@ -60,26 +60,28 @@ async def run(schedule_index: int) -> None:
     raw_items = await fetch_all(sources)
     logger.info("Fetched %d raw items", len(raw_items))
 
-    # 3. Filter, deduplicate, score and rank
-    filtered = filter_and_score(raw_items, user_cfg, lookback_hours=lookback_hours)
-    logger.info("After filtering: %d items", len(filtered))
+    # 3. Filter and split into three independent tracks
+    tracks = filter_and_score_tracks(raw_items, user_cfg, lookback_hours=lookback_hours)
+    all_items = tracks["industry"] + tracks["impact_papers"] + tracks["domain_papers"]
+    logger.info("After filtering: %d items total", len(all_items))
 
-    if not filtered:
+    if not all_items:
         logger.info("No items to send — exiting cleanly.")
         return
 
-    # 4. LLM summarization
-    items = await summarize_all(filtered, user_cfg)
+    # 4. LLM summarization (all tracks together for efficiency)
+    # Items are dicts shared by reference, so summarize_all updates tracks in-place
+    await summarize_all(all_items, user_cfg)
 
     overview = ""
     if user_cfg.get("llm", {}).get("generate_overview", True):
-        overview = await generate_overview(items, user_cfg)
+        overview = await generate_overview(all_items, user_cfg)
 
     # 5. Archive to markdown
-    save_archive(items, overview, schedule.get("label", "AI Digest"))
+    save_archive(tracks, overview, schedule.get("label", "AI Digest"), user_cfg)
 
     # 6. Send WeChat notification
-    await send_wechat(items, overview, schedule, user_cfg)
+    await send_wechat(tracks, overview, schedule, user_cfg)
 
     logger.info("Done ✅")
 
