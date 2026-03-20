@@ -359,6 +359,10 @@
     {
       "url": "https://arxiv.org/abs/2603.18330",
       "date": "2026-03-20"
+    },
+    {
+      "url": "https://huggingface.co/blog/ibm-granite/granite-libraries",
+      "date": "2026-03-20"
     }
   ]
 }
