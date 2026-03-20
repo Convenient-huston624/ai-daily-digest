@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import logging
 import os
-from datetime import datetime, timezone
 
 import httpx
 
@@ -13,19 +12,18 @@ logger = logging.getLogger(__name__)
 
 _SERVERCHAN_API = "https://sctapi.ftqq.com/{key}.send"
 _MAX_DESP_BYTES = 32 * 1024  # 32 KB Server酱 limit
-_BATCH_SIZE = 10              # split into two messages if items > this
+_BATCH_SIZE = 10              # split into two messages if total items exceed this
+
+# Fixed order for rendering tracks
+_TRACK_ORDER = ["industry", "impact_papers", "domain_papers"]
+_TRACK_DEFAULTS = {
+    "industry":      "📰 业界动态",
+    "impact_papers": "🔬 影响力论文",
+    "domain_papers": "🎯 细分领域",
+}
 
 
-def _score_to_stars(score: float, thresholds: dict) -> str:
-    if score >= thresholds.get("critical", 15):
-        return "🔥🔥🔥"
-    if score >= thresholds.get("high", 8):
-        return "⭐⭐"
-    return "⭐"
-
-
-def _render_item(item: dict, index: int, display_cfg: dict, thresholds: dict) -> str:
-    stars = _score_to_stars(item.get("score", 0), thresholds)
+def _render_item(item: dict, index: int, display_cfg: dict) -> str:
     lines = [f"**{index}. {item['title']}**"]
 
     summary = item.get("summary_zh") or item.get("summary", "")
@@ -33,8 +31,6 @@ def _render_item(item: dict, index: int, display_cfg: dict, thresholds: dict) ->
         lines.append(summary)
 
     meta_parts = []
-    if display_cfg.get("show_stars", True):
-        meta_parts.append(stars)
     if display_cfg.get("show_source", True):
         meta_parts.append(f"📰 {item.get('source_name', '')}")
     if display_cfg.get("show_time", True):
@@ -49,42 +45,26 @@ def _render_item(item: dict, index: int, display_cfg: dict, thresholds: dict) ->
 
 
 def _build_desp(
-    items: list[dict],
+    tracks: dict[str, list[dict]],
     overview: str,
     display_cfg: dict,
-    thresholds: dict,
-    part_label: str = "",
+    tracks_cfg: dict,
+    include_overview: bool = True,
 ) -> str:
     sections: list[str] = []
 
-    if overview and not part_label:
+    if overview and include_overview:
         sections.append(f"## 📋 今日概述\n\n{overview}\n\n---")
 
-    # Group items by source priority tier
-    critical_items = [i for i in items if i.get("source_priority") == "critical" or i.get("score", 0) >= thresholds.get("critical", 15)]
-    high_items = [i for i in items if i not in critical_items and i.get("score", 0) >= thresholds.get("high", 8)]
-    normal_items = [i for i in items if i not in critical_items and i not in high_items]
-
     counter = 1
-
-    if critical_items:
-        sections.append("## 🔥🔥🔥 重大突破")
-        for item in critical_items:
-            sections.append(_render_item(item, counter, display_cfg, thresholds))
-            counter += 1
-        sections.append("---")
-
-    if high_items:
-        sections.append("## ⭐⭐ 值得关注")
-        for item in high_items:
-            sections.append(_render_item(item, counter, display_cfg, thresholds))
-            counter += 1
-        sections.append("---")
-
-    if normal_items:
-        sections.append("## ⭐ 业界动态")
-        for item in normal_items:
-            sections.append(_render_item(item, counter, display_cfg, thresholds))
+    for track_key in _TRACK_ORDER:
+        items = tracks.get(track_key, [])
+        if not items:
+            continue
+        label = tracks_cfg.get(track_key, {}).get("label", _TRACK_DEFAULTS[track_key])
+        sections.append(f"## {label}")
+        for item in items:
+            sections.append(_render_item(item, counter, display_cfg))
             counter += 1
         sections.append("---")
 
@@ -95,7 +75,7 @@ def _build_desp(
 
 
 async def send_wechat(
-    items: list[dict],
+    tracks: dict[str, list[dict]],
     overview: str,
     schedule: dict,
     user_cfg: dict,
@@ -106,25 +86,28 @@ async def send_wechat(
         return
 
     display_cfg = user_cfg.get("display", {})
-    thresholds = display_cfg.get("tier_thresholds", {"critical": 15, "high": 8})
+    tracks_cfg = user_cfg.get("tracks", {})
     label = schedule.get("label", "📰 AI 日报")
     beijing_now = get_beijing_time()
-    title = f"{label} · {beijing_now.strftime('%Y-%m-%d')} 共{len(items)}条"
+    total = sum(len(v) for v in tracks.values())
+    title = f"{label} · {beijing_now.strftime('%Y-%m-%d')} 共{total}条"
 
     url = _SERVERCHAN_API.format(key=key)
 
     async with httpx.AsyncClient(timeout=15) as client:
-        if len(items) <= _BATCH_SIZE:
-            desp = _build_desp(items, overview, display_cfg, thresholds)
+        if total <= _BATCH_SIZE:
+            desp = _build_desp(tracks, overview, display_cfg, tracks_cfg)
             await _post_message(client, url, title, desp)
         else:
-            # Split into two messages: first half + second half
-            first = items[: _BATCH_SIZE]
-            second = items[_BATCH_SIZE:]
-
-            desp1 = _build_desp(first, overview, display_cfg, thresholds)
-            desp2 = _build_desp(second, "", display_cfg, thresholds, part_label="(下)")
-
+            # First message: overview + industry news
+            # Second message: both paper tracks
+            first_tracks = {"industry": tracks.get("industry", [])}
+            second_tracks = {
+                "impact_papers": tracks.get("impact_papers", []),
+                "domain_papers": tracks.get("domain_papers", []),
+            }
+            desp1 = _build_desp(first_tracks, overview, display_cfg, tracks_cfg)
+            desp2 = _build_desp(second_tracks, "", display_cfg, tracks_cfg, include_overview=False)
             await _post_message(client, url, title + "（上）", desp1)
             await _post_message(client, url, title + "（下）", desp2)
 
