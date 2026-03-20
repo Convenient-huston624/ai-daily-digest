@@ -71,7 +71,7 @@ personal_interests:
 
 llm:
   # 可选: openai / deepseek / anthropic
-  provider: "openai"
+  provider: "deepseek"
   model: "deepseek-chat"
   summary_language: "zh"      # zh = 中文摘要, en = 英文摘要
   # 单条摘要最大字数
