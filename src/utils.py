@@ -32,7 +32,6 @@ def load_user_config() -> dict:
 
 def _validate_user_config(cfg: dict) -> None:
     assert "schedule" in cfg, "user_config.yaml missing 'schedule' section"
-    assert "filter" in cfg, "user_config.yaml missing 'filter' section"
     assert "llm" in cfg, "user_config.yaml missing 'llm' section"
 
 
@@ -96,33 +95,40 @@ def save_seen_urls(new_urls: list[str]) -> None:
     )
 
 
-def save_archive(items: list[dict], overview: str, label: str) -> None:
+_TRACK_ORDER = ["industry", "impact_papers", "domain_papers"]
+_TRACK_DEFAULTS = {
+    "industry":      "📰 业界动态",
+    "impact_papers": "🔬 影响力论文",
+    "domain_papers": "🎯 细分领域",
+}
+
+
+def save_archive(tracks: dict[str, list[dict]], overview: str, label: str, user_cfg: dict) -> str:
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     now = get_beijing_time()
-    filename = now.strftime(f"%Y-%m-%d_%H%M") + ".md"
+    filename = now.strftime("%Y-%m-%d_%H%M") + ".md"
     path = ARCHIVE_DIR / filename
 
+    tracks_cfg = user_cfg.get("tracks", {})
     lines = [f"# {label} — {now.strftime('%Y-%m-%d %H:%M')}\n\n"]
     if overview:
         lines.append(f"## 📋 今日概述\n\n{overview}\n\n---\n\n")
 
-    lines.append("## 📰 详细条目\n\n")
-    for i, item in enumerate(items, 1):
-        stars = _score_to_stars(item.get("score", 0))
-        lines.append(f"### {i}. {item['title']} {stars}\n\n")
-        lines.append(f"**来源**: {item.get('source_name', '')}  \n")
-        lines.append(f"**时间**: {format_time_delta(item['published'])}  \n")
-        lines.append(f"**链接**: {item['url']}  \n\n")
-        if item.get("summary_zh"):
-            lines.append(f"{item['summary_zh']}\n\n")
+    counter = 1
+    for track_key in _TRACK_ORDER:
+        items = tracks.get(track_key, [])
+        if not items:
+            continue
+        section_label = tracks_cfg.get(track_key, {}).get("label", _TRACK_DEFAULTS[track_key])
+        lines.append(f"## {section_label}\n\n")
+        for item in items:
+            lines.append(f"### {counter}. {item['title']}\n\n")
+            lines.append(f"**来源**: {item.get('source_name', '')}  \n")
+            lines.append(f"**时间**: {format_time_delta(item['published'])}  \n")
+            lines.append(f"**链接**: {item['url']}  \n\n")
+            if item.get("summary_zh"):
+                lines.append(f"{item['summary_zh']}\n\n")
+            counter += 1
 
     path.write_text("".join(lines), encoding="utf-8")
     return str(path)
-
-
-def _score_to_stars(score: float) -> str:
-    if score >= 15:
-        return "🔥🔥🔥"
-    if score >= 8:
-        return "⭐⭐"
-    return "⭐"
