@@ -1,94 +1,6 @@
 {
   "urls": [
     {
-      "url": "https://arxiv.org/abs/2603.16967",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2507.05257",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2601.03471",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.15797",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.15797",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17759",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17305",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17694",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17305",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.16289",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17112",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17169",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17312",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2509.12263",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.16928",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2509.12263",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17024",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17357",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.17680",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.18002",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2601.09233",
-      "date": "2026-03-19"
-    },
-    {
-      "url": "https://arxiv.org/abs/2512.02435",
-      "date": "2026-03-19"
-    },
-    {
       "url": "https://openai.com/index/how-we-monitor-internal-coding-agents-misalignment",
       "date": "2026-03-20"
     },
@@ -999,6 +911,66 @@
     {
       "url": "https://www.theverge.com/ai-artificial-intelligence/901315/eu-ai-act-delays-ban-nudify-apps",
       "date": "2026-03-26"
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://www.theverge.com/ai-artificial-intelligence/902085/google-gemini-import-memory-chat-history",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://deepmind.google/blog/gemini-3-1-flash-live-making-audio-ai-more-natural-and-reliable/",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://www.theverge.com/policy/902140/david-sacks-out-ai-crypto-czar",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://www.theverge.com/ai-artificial-intelligence/902149/anthropic-dod-pentagon-lawsuit-supply-chain-risk-injunction",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.11269",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23853",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23521",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23646",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23916",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2511.08947",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23539",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23610",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23625",
+      "date": "2026-03-27"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.23638",
+      "date": "2026-03-27"
     }
   ]
 }
