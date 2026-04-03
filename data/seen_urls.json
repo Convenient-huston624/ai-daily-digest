@@ -1,122 +1,6 @@
 {
   "urls": [
     {
-      "url": "https://www.qbitai.com/2026/03/392215.html",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.qbitai.com/2026/03/392137.html",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2601.07315",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2410.12164",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.22793",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.21597",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2502.01969",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2509.20502",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2601.07315",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.03292",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.21152",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.22350",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.qbitai.com/2026/03/392641.html",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.qbitai.com/2026/03/392281.html",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.qbitai.com/2026/03/392245.html",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.23506",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.24329",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.02788",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2601.09195",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.23559",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.24481",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.23518",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.23559",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2603.24124",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://arxiv.org/abs/2510.15259",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.theverge.com/ai-artificial-intelligence/901293/openai-adult-mode-erotic-chatbot-shelved-indefinitely",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.theverge.com/policy/901404/senators-warren-hawley-eia-letter-data-centers",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.theverge.com/ai-artificial-intelligence/899108/webtoon-canvas-ai-translation-localization-yongsoo-kim",
-      "date": "2026-03-26"
-    },
-    {
-      "url": "https://www.theverge.com/ai-artificial-intelligence/901315/eu-ai-act-delays-ban-nudify-apps",
-      "date": "2026-03-26"
-    },
-    {
       "url": "https://www.microsoft.com/en-us/research/blog/asgardbench-a-benchmark-for-visually-grounded-interactive-planning/",
       "date": "2026-03-27"
     },
@@ -863,6 +747,62 @@
     {
       "url": "https://www.qbitai.com/2026/04/395202.html",
       "date": "2026-04-02"
+    },
+    {
+      "url": "https://deepmind.google/blog/gemma-4-byte-for-byte-the-most-capable-open-models/",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://openai.com/index/codex-flexible-pricing-for-teams",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://www.qbitai.com/2026/04/395206.html",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://www.theverge.com/ai-artificial-intelligence/906253/granola-note-links-ai-training-psa",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.00013",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.00493",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.00528",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.28183",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2506.18919",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.01020",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.16082",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.24639",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.24639",
+      "date": "2026-04-03"
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.16082",
+      "date": "2026-04-03"
     }
   ]
 }
